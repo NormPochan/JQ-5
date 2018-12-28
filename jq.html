@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>List</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		function slide(tmp) {
+						tmp.preventDefault()
+						$(this.firstElementChild).slideToggle()
+						console.log(this.firstChild.data, $(this).find("li").length)
+						event.stopPropagation()
+					}
+		function listok(childs) {
+			var ul = $('<ul/>')
+			for (var top of childs) {
+				var li = $('<li/>')
+				if (top.text !== undefined) 
+					li.append(top.text)
+				if (typeof top !== 'object')
+					li.append(top)
+				else if (top.childs !== undefined) 
+					li.append(listok(top.childs))
+				ul.append(li)
+			}
+			return ul
+		}
+	</script>
+</head>
+<body>
+	<script type="text/javascript">
+		var m = [
+			{
+				text: 'Животные',
+				childs: [
+					{
+						text: 'Млекопитающие',
+						childs: [
+							'Коровы',
+							'Ослы',
+							'Собаки',
+							'Тигры'
+						]
+					},
+					{
+						text: 'Другие',
+						childs: [
+							'Змеи',
+							'Птицы',
+							'Ящерицы'
+						]
+					},
+					{
+						text: 'Рыбы',
+						childs: [
+							{
+								text: 'Аквариумные',
+								childs: [
+									'Гуппи',
+									'Скалярии'
+								]
+							},
+							{
+								text: 'Морские',
+								childs: [
+									'Морская форель'
+								]
+							}
+						]
+					}
+				]
+			}
+			];
+		
+		$("body").append(listok(m));
+		$('li' ).on('click', slide);
+	</script>
+</body>
+</html>

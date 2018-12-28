@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+<head>  
+	<title>List</title>
+	<meta charset="utf-8">
+	<script>
+  </script>
+</head>
+<body class="cvet1">
+  <div>
+  <script type="text/javascript">
+		var m = [
+		{
+					text: 'Животные',
+					childs: [
+						{
+							text: 'Млекопитающие',
+							childs: [
+								'Коровы',
+								'Ослы',
+								'Собаки',
+								'Тигры'
+							]
+							},
+						{
+							text: 'Другие',
+							childs: [
+								'Змеи',
+								'Птицы',
+								'Ящерицы'
+							]
+						},
+						{
+							text: 'Рыбы',
+							childs: [
+								{
+									text: 'Аквариумные',
+									childs: [
+										'Гуппи',
+										'Скалярии'
+									]
+								},
+								{
+									text: 'Морские',
+									childs: [
+										'Морская форель'
+									]
+								}
+							]
+						}
+					]
+				}
+				];
+			
+				function listoks(childs) {
+					var ul = document.createElement('ul')
+					for (var top of childs) {
+						var li = document.createElement('li')
+						if (top.text !== undefined) 
+							li.append(top.text)
+						if (typeof top !== 'object')
+							li.append(top)
+						else if (top.childs !== undefined) 
+							li.append(listoks(top.childs))
+						ul.append(li)
+					}
+					return ul
+				}
+				document.body.append(listoks(m))
+				function inf(br){
+					var infol = {noda: br, ful: []}
+					for(var key in br)
+						infol.ful.push(key + " " + br[key])
+					console.log(infol)
+					for (var i = 0; i < br.children.length; i++)
+						inf(br.children[i])
+				}
+				inf(document.documentElement)
+	</script>
+  </div>
+</body>
+</html>
